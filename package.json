@@ -1,9 +1,9 @@
 {
-  "name": "shihuo-bingo",
+  "name": "xchd-lottery",
   "version": "1.0.0",
-  "description": "石火电竞新春福袋抽奖活动页面",
+  "description": "石火电竞新春福袋抽奖活动",
   "scripts": {
-    "build": "rm -rf dist && mkdir -p dist/js && ./node_modules/.bin/javascript-obfuscator ./src/js --output ./dist/js --compact true --self-defending true && cp src/*.html dist/ && cp -r src/css dist/ && cp -r src/images* dist/ 2>/dev/null || true"
+    "build": "rm -rf dist && mkdir -p dist/js && ./node_modules/.bin/javascript-obfuscator ./src/js --output ./dist/js --compact true --self-defending true && cp src/*.html dist/ && cp -r src/css dist/"
   },
   "devDependencies": {
     "javascript-obfuscator": "^4.1.0"
