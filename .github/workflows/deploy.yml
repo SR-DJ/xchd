@@ -2,7 +2,7 @@ name: 自动混淆并发布到 Pages
 
 on:
   push:
-    branches: [main] # 如果您的主分支叫 master，请把这里改为 master
+    branches: [main] # 监听主分支提交
 
 permissions:
   contents: write    # 必须开启写入权限

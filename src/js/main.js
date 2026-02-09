@@ -20,7 +20,7 @@ function getRandomReward() {
         }
     }
     
-    // 容错处理,返回最后一个奖品
+    // 容错处理，返回最后一个奖品
     return REWARDS[REWARDS.length - 1].amount;
 }
 
@@ -54,6 +54,7 @@ document.getElementById('luckyBag').addEventListener('click', function() {
     setTimeout(() => {
         bag.classList.remove('shaking');
         
+        
         // 显示样板2红包动画
         const s2Hongbao = document.getElementById('s2Hongbao');
         s2Hongbao.classList.add('show');
@@ -61,6 +62,7 @@ document.getElementById('luckyBag').addEventListener('click', function() {
 
     }, 500);
 });
+
 
 // 样板2: 摇晃炸开式红包动画
 function s2Open() {
@@ -119,11 +121,11 @@ function closeModal() {
     // 重置显示状态
     hongbao.style.display = 'none';
     
-    // 重置标志,允许再次抽奖
+    // 重置标志，允许再次抽奖
     isDrawing = false;
 }
 
-// 打开微信小程序
+// 打开微信小程序 (从 index1.html 迁移)
 function openWeapp() {
     const weappUrl = "https://taix.cn/plugins/mobile/h5/mall/5489/?#/pages/index/index";
     window.open(weappUrl, '_blank');
