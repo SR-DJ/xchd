@@ -1,0 +1,636 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: linear-gradient(180deg, 
+        rgba(80, 0, 0, 0.95) 0%, 
+        rgba(60, 0, 0, 0.98) 50%, 
+        rgba(40, 0, 0, 1) 100%
+    );
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    background-image: url('https://private-us-east-1.manuscdn.com/sessionFile/v0aZ9LJqVy00kja6MSxvbZ/sandbox/VnGDC7EuZLSIlzLjwCJs7f-img-2_1770133027000_na1fn_bHVja3ktYmFnLWJn.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvdjBhWjlMSnFWeTAwa2phNk1TeHZiWi9zYW5kYm94L1ZuR0RDN0V1WkxTSWx6TGp3Q0pzN2YtaW1nLTJfMTc3MDEzMzAyNzAwMF9uYTFmbl9iSFZqYTNrdFltRm5MV0puLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=IJ5of6X16UtEQmiKFkUvJJ264bYoQTmACqYu46BysiKrHgR99pmlpA9Op2ySkLX8JXMNctHISwTkCZmivM8Q1K0pVvABzkVs7X1lwkW~Kinkysr9asWaatqorad2G5Bjmd8faNMsCJlJk--B5TRLykSBRJm0nuyIZzKamv3GGg62lcxrY9Wq0uN4-gjNV-DKeci3sHQ8AZm7DfrumASJ962FeV3mrhb2WFh5fnixnQctpnclbyzGIXQW3Bpp2~jK42P7OYUdlOeQ-8v2NfGaw5GFfwEfLuYvjGUGLTPhZArt2BOqPPi3rfSF-gsZ1T4wDd1LHIlpB0ofDCRkyvVsjg__');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    z-index: 0;
+}
+
+.font-display {
+    font-family: 'Noto Serif SC', serif;
+}
+
+.text-gold {
+    color: #FFD700;
+}
+
+.text-shadow-gold {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);
+}
+
+/* 飘落金币动画 */
+.falling-particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.coin {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #FFD700, #B8860B);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    opacity: 0.6;
+    animation: coin-fall linear infinite;
+}
+
+@keyframes coin-fall {
+    0% { 
+        transform: translateY(-100vh) rotate(0deg); 
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(100vh) rotate(720deg); 
+        opacity: 0;
+    }
+}
+
+/* 主容器 */
+.container {
+    position: relative;
+    z-index: 20;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 头部 */
+header {
+    padding: 40px 20px 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FEF3C7;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.activity-time {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 24px;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 50px;
+    color: #FFD700;
+    font-size: 16px;
+}
+
+/* 福袋区域 */
+.lucky-bag-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.lucky-bag-container {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.lucky-bag-container:hover .lucky-bag-img {
+    transform: scale(1.05);
+}
+
+.lucky-bag-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
+    transform: scale(1.5);
+    filter: blur(40px);
+    opacity: 0.5;
+}
+
+.lucky-bag-img {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+.lucky-bag-container.shaking .lucky-bag-img {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+.click-hint {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #FFD700;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    white-space: nowrap;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* 规则区域 */
+.rules-section {
+    padding: 40px 20px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+.card {
+    width: 100%;
+    max-width: 600px;
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.6) 0%, rgba(80, 0, 0, 0.8) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 215, 0, 0.2);
+}
+
+.card-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #FFD700;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.rule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 3px solid rgba(255, 215, 0, 0.6);
+    border-radius: 8px;
+    color: #FEF3C7;
+}
+
+.rule-item:last-child {
+    margin-bottom: 0;
+}
+
+.rule-amount {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.card-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    text-align: center;
+    color: rgba(254, 243, 199, 0.7);
+    font-size: 14px;
+}
+
+.reward-range {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.reward-range p {
+    color: #FEF3C7;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.reward-amounts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.reward-amount {
+    font-size: 42px;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.reward-separator {
+    font-size: 32px;
+    color: #FFE082;
+}
+
+/* 弹窗 */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: linear-gradient(to bottom, #7F1D1D, #450A0A);
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-envelope {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 30px;
+    animation: envelope-appear 0.8s ease-out;
+}
+
+@keyframes envelope-appear {
+    from {
+        transform: scale(0) rotate(-180deg);
+    }
+    to {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.modal-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.modal-amount {
+    font-size: 56px;
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+}
+
+.modal-amount .amount-unit {
+    font-size: 24px;
+    opacity: 0.9;
+    font-weight: normal;
+}
+
+.modal-hint {
+    color: rgba(254, 243, 199, 0.8);
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.modal-button {
+    background: linear-gradient(to right, #FBBF24, #F59E0B);
+    color: #7F1D1D;
+    font-weight: bold;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+    transition: all 0.3s ease;
+}
+
+.modal-button:hover {
+    background: linear-gradient(to right, #F59E0B, #D97706);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(251, 191, 36, 0.6);
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 36px; }
+    h2 { font-size: 28px; }
+    .lucky-bag-img { width: 180px; height: 180px; }
+    .card { padding: 20px; }
+    .card-title { font-size: 24px; }
+    .reward-amount { font-size: 36px; }
+    
+    /* 中奖弹窗缩小 */
+    .modal-content { 
+        padding: 25px; 
+        max-width: 280px; 
+    }
+    .modal-envelope { 
+        width: 80px; 
+        height: 80px; 
+        margin-bottom: 20px; 
+    }
+    .modal-title { 
+        font-size: 24px; 
+        margin-bottom: 15px; 
+    }
+    .modal-amount { 
+        font-size: 40px; 
+        margin-bottom: 20px; 
+        gap: 4px;
+    }
+    .modal-amount .amount-unit {
+        font-size: 16px;
+    }
+    .modal-hint { 
+        font-size: 12px; 
+        margin-bottom: 20px; 
+    }
+    .modal-button { 
+        padding: 10px 30px; 
+        font-size: 14px; 
+    }
+}
+
+/* --- 右上角Logo --- */
+.top-logo {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 120px;
+    height: auto;
+    opacity: 0.9;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s ease;
+}
+
+.top-logo:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* --- 右下角标识 (从 index1.html 迁移) --- */
+.brand-info {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    text-align: right;
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.5) 0%, rgba(80, 0, 0, 0.6) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 215, 0, 0.1);
+    font-size: 12px;
+    color: rgba(254, 243, 199, 0.9);
+    line-height: 1.6;
+    min-width: 180px;
+}
+
+.brand-info .highlight {
+    color: #FFD700;
+    font-weight: bold;
+    margin-left: 5px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* 微信小程序按钮样式 */
+.brand-info .weapp-btn {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.8), rgba(204, 0, 0, 0.9));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: #FFD700;
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    padding: 8px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.3s;
+    width: 100%;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+}
+
+.brand-info .weapp-btn:hover {
+    background: linear-gradient(135deg, rgba(204, 0, 0, 0.9), rgba(255, 51, 51, 0.95));
+    border-color: rgba(255, 215, 0, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+}
+
+.brand-info .weapp-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.brand-info .weapp-btn .weapp-icon {
+    font-size: 14px;
+}
+
+                
+/* 样板2: 摇晃炸开式红包动画 */
+.s2-hongbao {
+    width: 260px; height: 380px; position: fixed;
+    top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(-100vh);
+    z-index: 2000; display: none;
+}
+.s2-hongbao.show {
+    display: block;
+    animation: s2Drop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes s2Drop {
+    from { transform: translate(-50%, -50%) translateY(-100vh) rotate(-10deg); }
+    to { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
+}
+.s2-envelope {
+    width: 100%; height: 100%; position: relative;
+    background: linear-gradient(180deg, #E74C3C 0%, #C0392B 40%, #A93226 100%);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+    overflow: hidden;
+}
+.s2-gold-band {
+    position: absolute; top: 45%; left: 0; right: 0; height: 50px;
+    background: linear-gradient(180deg, #FFD700, #FFA500, #FFD700);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.s2-gold-text { font-size: 20px; color: #8B0000; font-weight: bold; letter-spacing: 8px; }
+.s2-pattern {
+    position: absolute; top: 15%; left: 50%; transform: translateX(-50%);
+    width: 80px; height: 80px; border: 3px solid rgba(255,215,0,0.4);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 40px; color: rgba(255,215,0,0.5);
+}
+.s2-tap-hint {
+    position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%);
+    font-size: 16px; color: rgba(255,255,255,0.8);
+    animation: s2Blink 1s infinite;
+    cursor: pointer;
+}
+@keyframes s2Blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.s2-envelope.shaking { animation: s2Shake 0.1s 15 alternate; }
+@keyframes s2Shake {
+    0% { transform: rotate(-5deg) scale(1.02); }
+    25% { transform: rotate(5deg) scale(0.98); }
+    50% { transform: rotate(-3deg) scale(1.01); }
+    75% { transform: rotate(3deg) scale(0.99); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+.s2-envelope.explode { animation: s2Explode 0.6s forwards; }
+@keyframes s2Explode {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(0); opacity: 0; }
+}
+.s2-paper-wrap {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+    z-index: 5; transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.s2-paper-wrap.show { transform: translate(-50%, -50%) scale(1); }
+.s2-paper {
+    width: 220px; background: linear-gradient(135deg, #FFFACD, #FFF8DC, #FFFACD);
+    border-radius: 10px; padding: 25px; text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    border: 2px solid #DAA520;
+    position: relative;
+}
+.s2-paper::before, .s2-paper::after {
+    content: ''; position: absolute; width: 30px; height: 30px;
+    border: 2px solid #DAA520; border-radius: 4px;
+    transform: rotate(45deg);
+}
+.s2-paper::before { top: -8px; left: -8px; border-right: none; border-bottom: none; }
+.s2-paper::after { bottom: -8px; right: -8px; border-left: none; border-top: none; }
+.s2-paper h3 { color: #8B0000; font-size: 16px; margin-bottom: 10px; }
+.s2-paper .amount { font-size: 42px; font-weight: bold; color: #C0392B; }
+.s2-paper .amount small { font-size: 20px; }
+.s2-paper .blessing { font-size: 12px; color: #8B4513; margin-top: 10px; }
+.s2-confetti {
+    position: absolute; width: 10px; height: 10px; border-radius: 2px;
+    animation: s2Fall 1.5s forwards;
+}
+@keyframes s2Fall {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) rotate(720deg); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .coin-3d {
+        width: 112px;
+        height: 112px;
+    }
+    .hfb-glow {
+        width: 195px;
+        height: 195px;
+    }
+    .hfb-rays {
+        width: 255px;
+        height: 255px;
+    }
+    
+    /* 右上角Logo缩小 */
+    .top-logo {
+        top: 15px;
+        right: 15px;
+        width: 80px;
+    }
+    
+    /* 右下角标识缩小 */
+    .brand-info {
+        bottom: 15px;
+        right: 15px;
+        padding: 8px 10px;
+        font-size: 10px;
+        min-width: 140px;
+        border-radius: 8px;
+    }
+    .brand-info .weapp-btn {
+        padding: 6px 10px;
+        font-size: 10px;
+        margin-top: 8px;
+    }
+    .brand-info .weapp-btn .weapp-icon {
+        font-size: 12px;
+    }
+}
+
+
+    </style>
+</head>
